@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>이 프로젝트가 마음에 드시면 좋아요 버튼을 눌러주세요</h2>
+    <div id="react-root"></div>
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="code1-1.js"></script>
+    <script>
+        // Page 6 code 1-2
+        class LikeButton extends React.Component {
+            constructor(props) { // 생성자
+                super(props); // 상위 컴포넌트(부모 컴포넌트) 초기화
+                this.state = { // 객체
+                    liked: "좋아요" // 객체이름:객체속성
+                };
+            }
+            render() {
+                let text = this.state.liked ? '좋아요 취소' : '좋아요'
+                return React.createElement(
+                    'button', // 내가 만드려고 하는 element
+                    {
+                        /*onClick: () => this.setState({ // setState 메소드를 사용해서 상태변수를 바꿈. 하지만, toggle는 불가 
+                            liked: true 
+                        })*/
+                        onClick: () => this.setState({ // onClick : 객체의 속성, 그 뒤는 onClick에 대한 값., 동작에 따른 상태변화만 관리
+                            liked: this.state.liked == "좋아요" ? "좋아요 취소" : "좋아요" // toggle 가능
+                        })
+                    },
+                    this.state.liked,
+                );
+            }
+        }
+        let domContainer = document.querySelector('#react-root'); // 해당하는 문서에서 id가 react-root인 것을 가져옴, 위의 div태그에 있다
+        ReactDOM.render(React.createElement(LikeButton), domContainer); // 화면에 보여줄 element. 리액트 컴포넌트가 만들어진다. 
+    </script>
+</body>
+
+</html>

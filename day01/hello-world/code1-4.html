@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>React-three_Button</title>
+</head>
+<body>
+    <body>
+        <h2>React로 button 3개 구현- <br>이 프로젝트가 마음에 드시면 좋아요 버튼을 눌러주세요</h2>
+        <div id="react-root1"></div>
+        <div id="react-root2"></div>
+        <div id="react-root3"></div>
+        <script src="react.development.js"></script>
+        <script src="react-dom.development.js"></script>
+        <script>
+            // Page 6 code 1-2
+            class LikeButton extends React.Component {
+                constructor(props) { // 생성자
+                    super(props); // 상위 컴포넌트(부모 컴포넌트) 초기화
+                    this.state = { // 객체
+                        liked: false // 객체이름:객체속성
+                    };
+                }
+                render() {
+                    let text = this.state.liked ? '좋아요 취소' : '좋아요'
+                    return React.createElement(
+                        'button', // 내가 만드려고 하는 element
+                        {
+                            onClick: () => this.setState({ 
+                                liked: !this.state.liked // toggle 가능
+                            })
+                        },
+                        text,
+                    );
+                }
+            }
+            ReactDOM.render(React.createElement(LikeButton), document.querySelector('#react-root1')); 
+            ReactDOM.render(React.createElement(LikeButton), document.querySelector('#react-root2')); 
+            ReactDOM.render(React.createElement(LikeButton), document.querySelector('#react-root3')); 
+        </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JQuery-three_Button</title>
+</head>
+
+<body>
+    
+    <h2>jQuery로 button 3개 구현- <br>프로젝트가 마음에 들면 좋아요 버튼을 클릭해주세요</h2>
+    <div id="react-root">
+        <button id="btn1">좋아요</button>
+        <button id="btn2">좋아요</button>
+        <button id="btn3">좋아요</button>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>// jQuery 구현 각 버튼의 상태에 대한 변수를 각각 설정해야 함
+        $(function () {
+            let liked1 = false;
+            let liked2 = false;
+            let liked3 = false;
+            $('button#btn1').click(function () { // 상태의 불일치가 발생할 가능성이 있음
+                liked1 = ~liked1;
+                if (liked1) $(this).text("좋아요");
+
+                else $(this).text("좋아요 취소");
+            });
+            $('button#btn2').click(function () { // 상태의 불일치가 발생할 가능성이 있음
+                liked2 = ~liked2;
+                if (liked2) $(this).text("좋아요");
+
+                else $(this).text("좋아요 취소");
+            });
+            $('button#btn3').click(function () { // 상태의 불일치가 발생할 가능성이 있음
+                liked3 = ~liked3;
+                if (liked3) $(this).text("좋아요");
+
+                else $(this).text("좋아요 취소");
+            });
+            $('button#btn1').trigger('click');
+            $('button#btn2').trigger('click');
+            $('button#btn3').trigger('click');
+        });
+    </script>
+</body>
+
+</html>

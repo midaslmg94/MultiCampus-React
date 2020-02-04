@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h2>프로젝트가 마음에 들면 좋아요 버튼을 클릭해주세요</h2>
+    <div id="react-root">
+        <button>좋아요</button>
+
+    </div>
+
+<!--
+    <script src="react.development.js"></script>
+    <script src="react-dom.development.js"></script>
+    <script src="code1-1.js"></script>
+    <script>
+        -->
+    <!-- jQuery라이브러리로 구현-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script>
+       /* 
+        liked 변수의 값이 false이면 좋아요 취소ㅡ rue이면 좋아요
+
+       */
+       $(function(){
+        let liked = false;
+        $('button').click(function(){ // 상태의 불일치가 발생할 가능성이 있음
+          liked = ~liked;
+          if(liked) $(this).text("좋아요");
+            
+            else $(this).text("좋아요 취소");
+       });
+       $('button').trigger('click'l)
+    });
+    </script>
+
+
+   </script> </script>
+
+</body>
+
+</html>
