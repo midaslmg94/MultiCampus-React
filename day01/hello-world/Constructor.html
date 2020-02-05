@@ -1,0 +1,23 @@
+<script>
+    {
+        function Something() {
+            this.value = 1;
+            this.increase = () => this.value++;
+        }
+        let obj = new Something();
+        obj.increase();
+        console.log(obj.value); // 2
+
+        let increase = obj.increase;
+        
+        increase();
+        console.log(obj.value); // 3 
+
+        let obj2 = new Something();
+        obj2.increase();
+        increase();
+        console.log(obj.value); // 4
+        console.log(obj2.value); // 2
+
+    }
+</script>

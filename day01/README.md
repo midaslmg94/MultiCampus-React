@@ -44,7 +44,136 @@
     ```
   
     - development가 들어간 파일 --> 개발 환경에서 사용하는 파일 --> 에러 메시지 확인 가능
+    
     - production이 들어간 파일 --> 실행(배포)환경에서 사용하는 파일
+    
     - react : 플랫폼 구분없이 공통으로 사용되는 파일(리액트 코어 파일)
+    
     - react-dom : 웹 환경 개발에서 사용되는 파일
+    
+      
 
+------
+
+##### 200205 수요일
+
+- 코드를 분할하지 않고 사용
+
+  - App.js
+
+  ```react
+  #Todo.js
+  import React from 'react';
+  export function Todo({title}){
+      return <div>{title}</div>
+  }
+  export default Todo;
+  
+  #TodoList.js
+  // page 27 Code Splitting
+  import React, {Component} from 'react';
+  import Todo from '/.Todo.js';
+  class TodoList extends Component{
+      // state : 객체이며 상태변수. 해당 컴포넌트 내에서 사용(유지)되는 값
+      state = {
+          todos:  [],
+      };
+      onClickHandler=()=>{
+          let {todos}=this.state;
+          let position = todos.length+1;
+          let newTodo = <Todo title={`할일 ${position}`} />
+          this.setState({todos: [...todos, newTodo]});
+      };
+      render(){
+          // 위에서 설정한 todos의 값이 전부 들어간다
+          let {todos} = this.state;
+          return(
+              <div>                
+                  <button onClick={this.onClickHandler}>할일 추가</button>
+                  {todos}
+              </div>
+          );
+      }
+  }
+  
+  export default TodoList;
+  
+  #App.js
+  import React from 'react';
+  import TodoList from './TodoList.js';
+  
+  function App() {
+    return (
+      <div className="App">
+        <TodoList />
+      </div>
+    );
+  }
+  
+  export default App;
+  
+  ```
+
+- 
+
+- 코드 분할하기( `page 27 Code Splitting`)
+
+  - Todo.js
+
+  ```react
+  import React from 'react';
+  // 상속을 받지 않고, 값의 상태변수가 필요없고, 단순 출력만 하려면 클래스형이 아니라 함수형으로 선언한다.
+  // 다른 곳에서 Todo를 import 해서 쓸 수 있다, title : 프로퍼티
+  export function Todo({title}){
+      return <div>{title}</div>
+  }
+  
+  // 위와 동일함
+  function Todo({title}){
+      return <div>{title}</div>
+  }
+  export default Todo;
+  ```
+
+  - TodoList.js
+
+  ```react
+  
+  ```
+
+  - TodoList.js
+
+  ```react
+  // page 27 Code Splitting
+  import React, {Component} from 'react';
+  //import Todo from './Todo.js';
+  class TodoList extends Component{
+      // state : 객체이며 상태변수. 해당 컴포넌트 내에서 사용(유지)되는 값
+      state = {
+          todos:  [],
+      };
+      onClickHandler=()=>{
+          import('./Todo.js').then(({Todo})=>{
+             
+              let {todos}=this.state;
+              let position = todos.length+1;
+              let newTodo = <Todo title={`할일 ${position}번째`} />
+              this.setState({todos: [...todos, newTodo]});
+          });
+      };
+      render(){
+          // 위에서 설정한 todos의 값이 전부 들어간다
+          let {todos} = this.state;
+          return(
+              <div>                
+                  <button onClick={this.onClickHandler}>할일 추가</button>
+                  {todos}
+              </div>
+          );
+      }
+  }
+  
+  export default TodoList;
+  ```
+
+  

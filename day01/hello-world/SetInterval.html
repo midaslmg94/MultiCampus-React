@@ -1,0 +1,55 @@
+<script>
+    {
+        function Something1() {
+            this.value = 1;
+            setInterval(
+                function increase() { // this.value를 1초에 1씩 증가 시킴
+                    if (this.value !== undefined) {
+                        this.value++;
+                    } else {
+                        this.value = 1;
+                    }
+                    console.log(`something1:${this.value}`); // 1부터 출력
+                },
+                1000
+            );
+        }
+
+        let obj1 = new Something1();
+
+
+    }
+
+    {
+        // this를 함수 안에서 쓰기 위해서 새로운 변수 that을 만들어서 처리함
+        function Something2() {
+            this.value = 1;
+            let that = this;
+            setInterval(
+                function increase() {
+                    that.value++;
+                    console.log(`something2:${that.value}`); // 2부터 출력
+                },
+                1000
+            );
+        }
+
+        let obj2 = new Something2();
+    }
+
+    {
+        // something2를 화살표 함수로 표현
+        function Something3() {
+            this.value = 1;
+            setInterval(
+                () => {
+                    this.value++;
+                    console.log(`something3:${this.value}`); // 2부터 출력
+                },
+                1000
+            );
+        }
+
+        let obj3 = new Something3();
+    }
+</script>

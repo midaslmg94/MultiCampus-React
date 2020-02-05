@@ -1,0 +1,154 @@
+<h3>P62 배열 비구조화</h3>
+<script>
+    // 배열 비구조화
+    {
+        let arr = [1, 2];
+        let [a, b] = arr;
+        console.log(a); //1
+        console.log(b); //2
+    }
+
+    {
+        // 배열 비구조화를 이용한 변수 값 할당
+        let a, b;
+        [a, b] = [0, 1]; // a=0, b=1; 과 같음
+        console.log(a, b);
+    }
+
+    {
+        // 배열 비구조화를 이용한 기본값 설정
+        let arr = [1];
+        let [a = 10, b] = arr; // arr의 index순서에 맞게 들어감
+        console.log(a, b); // 1 undefined
+
+        let [c = 20, d = 30] = arr;
+        console.log(c, d); // 1 30
+
+    }
+
+    {
+        // 배열 비구조화를 이용한 값 교환
+        let a = 10;
+        let b = 20;
+        // 고전방식 : a,b의 값을 교환
+        let tmp = 10;
+        a = b;
+        b = tmp;
+        console.log(a, b); // 20 10
+
+        let c = 30;
+        let d = 40;
+        [c, d] = [d, c];
+        console.log(c, d); // 40 30 
+
+    }
+
+    {
+        // 쉼표를 이용해서 일부 속성값을 건너뛸 수 있음
+        let arr = [1, 2, 3, 4];
+        const [a, , , b] = arr;
+        console.log(a, b); // 1 4
+
+    }
+    {
+        // 나머지 값을 별도의 배열로 만들기
+        let arr = [1,2,3];
+        let [first, ...rest]=arr;
+        console.log(first, rest);// 1, [2,3] 2와 3은 배열로 들어감.
+        
+        let [a,b,...rest2] = arr;
+        
+        console.log(rest2);
+
+    }
+
+    {
+        // 객체 비구조화에서는 속성이름이 중요. 이름에 맞게 매핑된다
+        let obj1 = {age:21, name:"Joon"};
+        let {age, name} =obj1;
+        console.log(age, name);
+    }
+    {
+        // 순서가 바뀌어도 괜찮
+        let obj1 = {age:21, name:"Joon"};
+        let {name, age} =obj1;
+        console.log(age, name);
+    }
+    {
+        // 객체 비구조화에서 별칭 사용
+        let obj1={name:"Dae", age:30};
+        let{age:a, name:b}=obj1;
+        console.log(a,b);
+    }
+    {
+        // 객체 비구조화에서 기본값 설정
+        let obj = {age:undefined, name:null, grade:'A'};
+        let {age =0, name ='noname', grade='F'} = obj;
+        console.log(age, name, grade); // 0 null 'A'
+    }
+    {
+        // 기본값과 별칭을 동시에 사용
+        let obj = {age:undefined, name:"Jane"};
+        let{age:newAge = 0, name}=obj;
+        console.log(newAge); // 0
+        console.log(age); // error
+    }
+
+    {
+        //  함수를 이용한 기본값
+    function getDefaultAge() {
+        return 0;
+    }
+
+    const obj1 = { age: 21, grade: 'A' };
+    const { age = getDefaultAge(), grade } = obj1;
+    console.log(age);       // 21
+    console.log(grade);     // A
+}
+
+{
+    function getDefaultAge() {
+        return 0;
+    }
+
+    const obj1 = { age: undefined, grade: 'A' };
+    const { age = getDefaultAge(), grade } = obj1;
+    console.log(age);       // 0
+    console.log(grade);     // A
+}
+//  객체 비구조화에서 나머지 속성들을 별도의 객체로 생성
+{
+    const obj = { age: 21, name: "Mike", grade: "A" };
+    const { age, ...rest } = obj;
+    console.log(rest);      // {name: "Mike", grade: "A"}
+}
+
+{
+    const obj = { age: 21, name: "Mike", grade: "A" };
+    const { name, ...rest } = obj;
+    console.log(rest);      // {age: 21, grade: "A"}
+}
+
+{
+    const obj = { age: 21, name: "Mike", grade: "A" };
+    const { age, grade, ...rest } = obj;
+    console.log(rest);      // {name: "Mike"}
+}
+//  for 문에서 객체 비구조화를 활용
+{
+    const people = [
+        { age: 21, name: "Mike" }, 
+        { age: 22, name: "Johe" },
+    ];
+    
+    for (i of people) {
+        let age = i.age;
+        let name = i.name;
+        console.log(age, name);
+    }
+    
+    for ({ age, name } of people) {
+        console.log(age, name);
+    }
+}
+</script>

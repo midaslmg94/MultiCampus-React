@@ -1,0 +1,52 @@
+<h4>Page 74 프로미스</h4>
+비동기 상태를 값으로 다룰 수 있는 객체
+프로미스 이전에는 콜백 패턴을 많이 사용
+
+<p>프로미스 상태</p>
+<li>대기중(pending) : 결과를 기다리는 상태</li>
+<li>이행됨(fulfilled) : 수행이 정상적으로 끝났고 결과값을 갖고 있는 상태</li>
+<li>거부됨((rejected) : 수행이 비정상적으로 끝난 상태</li>
+<li>이행됨, 거부됨 상태를 처리됨(settled)상태라고 함</li>
+<br><br>
+프로미스는 처리됨(settled) 상태가 되면, 더 이상 다른 상태로 변경되지 않으며,<br> 대기중 상태에서만 이행됨, 거부됨 상태로 변경될 수 있음
+<script>
+    // 프로미스를 생성하는 방법
+    // 1. new 키워드를 사용해서 프로미스를 생성 --> '대기중' 상태가 된다.
+    // 생성자에 입력된 함수는 resolve와 reject라는 콜백 함수를 매개변수로 가지며, 비동기로 작업 수행 후 성공했을 때 reslove를 호출하고, 실패했을 때 reject를 호출한다.
+
+    // 
+    {
+
+        let p1 = new Promise((resolve, reject) => { // Promise()는 2개의 인자를 받는다.
+            // ...
+            // resolve(data)
+            // or
+            // reject('error message')
+        });
+    }
+
+    // new 키워드를 사용하지 않고, Promise.reject를 호출하면 '거부됨' 상태의 프로미스가 생성
+    {
+
+        // Promise.resolve 호출 --> 입력값이 promise이면 그 객체가 그대로 반환, promise가 아니라면 이행됨 상태의 Promise가 반환
+        // Promise.resolve 입력값이 Promise가 아니면 이행된 상태의 Promise가 반환
+        let p3 = Promise.resolve(123);
+        console.log(p3); // Promise {<resolved>: 123}
+
+
+        // Promise.resolve 입력값이 Promise이면 그 객체가 그대로 반환
+        let p4 = new Promise(resolve => setTimeout(() => resolve(10), 1));
+        console.log(Promise.resolve(p4) === p4); // true
+        console.log(p4); // pending
+
+    }
+
+    console.log('============================='); {
+        // Promise 이용하기 : then
+        let p1 = Promise.resolve(123).then(data => console.log("#1", data)); // #1 123 --> 3번째로 출력
+        console.log(p1 !== 123); // true --> 1번째로 출력
+        console.log(p1); // Promise{<pending>} --> 2번째로 출력 
+
+        p1.then(data => console.log("#1-1", data)); // #1-1 undefined --> 4번째로 출력
+    }
+</script>

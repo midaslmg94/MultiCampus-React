@@ -1,0 +1,62 @@
+<h3>P67 매개변수</h3>
+<script>
+    //매개변수 기본값 설정
+    {
+        function printLog(a = 1) {
+            console.log(a);
+            console.log({
+                a
+            }); // <-- 단축 속성명
+    }
+    printLog(); // 1  <-- 매개변수의 기본값이 사용
+    printLog(2); // 2 <-- 
+    }   
+    // 매개변수를 기본값으로 함수를 호출
+    {
+        function getDeafult() {
+            return 1;
+        }
+
+        function printLog(a=getDeafult()) {
+            console.log({a});
+        }
+        printLog(); // {a:1}
+        printLog(2); // {a:2}
+    }
+
+    // 매개변수를 기본값을 이용해서 필수입력 여부를 표현
+    {
+        function required() {
+            throw new Error("필수입력입니다");
+        }
+
+        function printLog(a=required()) {
+            console.log({a});
+        }
+        printLog(2); // {a:2}
+        printLog(); // {a:1}
+    }
+
+    // 나머지 매개변수를 사용하는 코드
+    {
+        function printLog(a, ...rest) {
+            console.log({a,rest});
+        }
+        printLog(1,2); // {a:1, rest:[2]}
+        printLog(1,2,3); // {a:1, rest:[2,3]}
+        printLog(1,2,3,4); // {a:1, rest:[2,3,4]}
+    }
+
+    // 명명된 매개변수(named parameter) : 사용 여부에 따라 가독성이 달라짐
+    {
+        let numbers = [10,20,30,40,50];
+        let result1 = getValues(numbers, 5,25);
+        let result2 = getValues({numbers, greaterThan:5, lessThan:25}); // 매개변수에 대한 가독성이 향상
+    }
+    // 명명된 매개변수를 사용하면, 사용하지 않는 매개변수를 생략하는 것도 가능
+    {
+        let result1 = getValues({number, undefined, 25});
+        let result3 = getValues({number, greaterThan:5});
+        let result2 = getValues({number, lessThan:25}); 
+    }
+</script>
