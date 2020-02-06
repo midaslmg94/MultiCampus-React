@@ -1,0 +1,23 @@
+<h2>Promise-resolve</h2>
+
+<script>
+    const p1 = Promise.resolve(123); // 성공 상태의 Promise
+    console.log(p1 === 123); // false --> Promise(123) != 123
+    console.log(p1); // Promise {<resolved>: 123}, resolved 상태이고 123 값을 가지고 있는것이 반환
+
+    const p2 = new Promise(
+        func_resolve => { // 성공시 
+            setTimeout(() => func_resolve('1초 경과'), 1000)
+        },
+        func_reject => { // 실패시
+            return "error"
+        }
+    );
+    console.log(p2 === Promise.resolve(p2)); // true
+    console.log(p2); // Promise {<pending>}. 처음 상태 : pending
+    p2.then(data => {// 반환된 Promise의 결과가 then에게 전달되어 온다 --> Promise {<resolved>: "1초 경과"}, 1초 경과
+        console.log(p2), console.log(data)
+    }); 
+
+
+</script>

@@ -1,0 +1,48 @@
+<h3>Promise-catch</h3>
+<p>catch는 Promise에서 발생한 에러를 잡는다</p>
+<li>resolve 함수 내에서 발생하는 예외를 처리</li>
+<li>에러의 경우 가독성 측면에서 catch가 좋다</li>
+<h3>결론 : 성공 --> then, 예외 --> catch로 처리</h3>
+
+
+<script>
+    Promise.reject("message : error1").then(null, message => { // resolve 파라미터를 넣어주기 위해 null을 넣는것.
+        console.log(message)
+    });
+    Promise.reject("message : error2").catch(error => console.log(error));
+
+
+
+    // resolve 함수의 예외처리  --> then을 2개 써야함 : 불편
+    Promise.resolve("성공?실패?")
+    .then(
+        (data)=>{ // 성공했을 때 반환할 값
+            console.log("#1 resolve. success!", data);
+            throw new Error("Error Occured");
+        },
+        (data)=>{ // 실패했을 때 반환할 값
+            console.log("#2 reject, fail!",data);
+        }
+
+    )
+    .then(
+        ()=>{ // resolve 처리를 안함
+
+        },
+        (data)=>{
+            console.log("#3", data);
+        }
+    );
+
+    // catch 구문 사용
+    Promise.resolve("data")
+    .then(
+        (data)=>{
+            console.log("#1", data);
+            throw new Error("Catch Error");
+        }
+    )
+    .catch(data=>console.log("#4",data))
+
+
+</script>

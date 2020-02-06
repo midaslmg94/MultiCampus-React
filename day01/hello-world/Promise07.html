@@ -1,0 +1,53 @@
+<h3>Promise.all</h3>
+<p>Promise.all : 여러개의 프로미스를 병렬로 처리 - 의존관계가 없는코드에 대해</p>
+<li>의존관계가 있는 업무는 순차적으로 비동기 처리</li>
+<li>requestData1()업무가 끝나야 requestData2()업무를 처리할 수 있다.</li>
+<p>의존관계가 없는 업무는 병렬로 처리</p>
+
+<script>
+    // 의존관계가 있는 업무는 순차적으로 비동기 처리.
+    // requestData1()업무가 끝나야 requestData2()업무를 처리할 수 있는 경우
+    function requestData1() { // 성공한 Promise 반환
+        return Promise.resolve("requestData1 called");
+    }
+
+    function requestData2() { // 실패한 Promise 반환
+        return Promise.reject("requestData2 called");
+    }
+    requestData1()
+        .then(data => {
+            console.log("#1", data);
+            return requestData2();
+        })
+        .then(data => {
+            console.log("#2", data);
+        })
+        .catch(error => {
+            console.log("ERROR", error);
+        });
+
+
+    // 서로 연관관계가 없는 경우
+    function requestData3() { // 성공한 Promise 반환
+        return Promise.resolve("requestData3 called");
+    }
+
+    function requestData4() { // 실패한 Promise 반환
+        return Promise.reject("requestData4 called");
+    }
+    requestData3().then(data => console.log("#11", data), error => console.log("#12", error));
+    requestData4().then(data => console.log("#13", data), error => console.log("#14", error));
+
+
+    // 개별적으로 처리해야할 업무를 병렬적으로 처리
+    Promise.all([requestData3(), requestData4()])
+        .then(([data1, data2]) => { // resolve
+            console.log(data1, dat2);
+        },([data1,data2])=>{ // reject
+            console.log(data1,data2);
+        })
+        .then(
+            () => console.log("모든 프로미스가 처리된 상태"),
+            () => console.log("프로미스 중 하나 이상이 거부된 상태")
+        );
+</script>

@@ -1,0 +1,15 @@
+<script>
+    Promise.reject(10)
+    .then(data=>{ // reject 함수가 없으므로 들어가지 않음
+        console.log("then1",data);
+        return 20;
+    }) 
+    .catch(data=>{ // 여기에 맨 처음으로 들어옴
+        console.log("catch",data); // 첫번째 출력 : catch, 10
+        return 30;
+    })  
+    .then(data=>{ // return한 30을 가지고 여기로 옴
+        console.log("then2",data); // 두번째 출력 : then2, 30
+    
+    });
+</script>

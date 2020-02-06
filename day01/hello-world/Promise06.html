@@ -1,0 +1,31 @@
+<h3>finally</h3>
+<p>finally 메소드는 새로운 프로미스를 생성하지 않음</p>
+<li>P80, 예제 실행안됨</li>
+<li>fetch는 Promise를 리턴한다</li>
+<li>이전에 사용된 Promise를 그대로 반환한다</li>
+<li>가장 마지막에 실행</li>
+
+
+<script>
+    function sendLogToServer(msg) {
+        console.log("sendLogToServer", msg);
+    }
+
+    function requestData() {
+        let url = "http://localhost:8080/hello-world/Promise06.html";
+        return fetch(url)
+            .then(resolve => { // 성공했을 때 
+                console.log("#1", resolve);
+                return resolve;
+            })
+            .catch(error => { // 실패했을 때
+                console.log("#2",error);
+                return error;
+            })
+            .finally(() => {
+                console.log("#3");
+                sendLogToServer("requestData Finished");
+            });
+    }
+    requestData().then(resolve=>console.log("#4",resolve));
+</script>

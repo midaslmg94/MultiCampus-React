@@ -1,0 +1,32 @@
+<h2>Promise-reject&&reject</h2>
+
+<script>
+    Promise.reject("error message")
+        .then(() => console.log("#1"))
+        .then(() => console.log("#2"))
+        .then(
+            () => console.log("#3-1"),
+            (data) => {
+                console.log("#3-2", data);
+                return "hello";
+            }
+        )
+        .then(() => console.log("#4-1", data), () => console.log("#4-2", data));
+
+
+
+    Promise.resolve("message")
+        .then((data) => {
+            console.log("#1", data);
+            return "message2";
+        })
+        .then((data) => console.log("#2", data))
+        .then(
+            () => console.log("#3-1"),
+            (data) => {
+                console.log("#3-2", data);
+                return "hello";
+            }
+        )
+        .then((data) => console.log("#4-1", data), () => console.log("#4-2"));
+</script>
