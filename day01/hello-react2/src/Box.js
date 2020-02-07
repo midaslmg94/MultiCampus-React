@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
 class Box extends React.Component {
     state = {
@@ -42,14 +42,14 @@ class Box extends React.Component {
         this.setState({
             items: [
                 ...items,
-                '아이템'
+                `${items.length + 1}'s items `
             ]
         });
     };
     render() {
         let {items} = this.state;
         return (
-            <Fragment>
+            <div>
                 <button onClick={this.onClick}>추가하기</button>
                 <div
                     ref={this.divRef}
@@ -64,7 +64,7 @@ class Box extends React.Component {
                     </span>)}
                 </div>
 
-            </Fragment>
+            </div>
         );
     }
 }
