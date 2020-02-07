@@ -1,44 +1,57 @@
 import React from 'react';
-import './App.css';
-import MyName from './Myname.js';
-import MyName2 from './Myname2.js';
-import Counter from './Counter.js';
-import MyComponent from './MyComponent.js';
-import Todo from './Todo';
-import Box from './Box';
 
-import ErrorBoundary from './ErrorBoundary';
-// Context API로 데이터 전달하기
 const UserContext = React.createContext('unknown');
+const ThemeContext = React.createContext('dark');
 
 class App extends React.Component {
-    render() {
-
-        return (
-            <div>
-                <UserContext.Provider value="minki">
-                    <div>상단 메뉴</div>
-                    <Profile/>
-                    <div>하단 메뉴</div>
-                </UserContext.Provider>
-            </div>
-        );
-    }
-}
-
-function Profile() {
+  state = { username: '' };
+  onChange = e => {
+    const username = e.target.value;
+    this.setState({ username });
+  };
+  render() {
+    const { username } = this.state;
     return (
-        <div>
-            <Greeting/>
-        </div>
-    )
-}
-function Greeting() {
-    return (
-        <UserContext.Consumer>
-            {username=><p>{`${username}님 안녕하세욤`}</p>}
-        </UserContext.Consumer>
+      <div>
+        <ThemeContext.Provider value="light">
+          <UserContext.Provider value={username}>
+            <div>상단 메뉴</div>
+            <Profile />
+            <div>하단 메뉴</div>
+          </UserContext.Provider>
+        </ThemeContext.Provider>
+        <input type="text" value={username} onChange={this.onChange} />        
+      </div>
     );
+  }
+}
+
+class Profile extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
+  render() {
+    console.log("Profile's render() called");
+    return <div><Greeting /></div>;
+  }
+}
+
+function Greeting() {
+  console.log("Greeting() called");
+  return (
+    <ThemeContext.Consumer>
+      { theme => (
+        <UserContext.Consumer>
+          { 
+            username => (
+              <p style={{ color: theme === 'dark' ? 'gray' : 'green' }}>{`${username}님 안녕하세요.`}</p>
+            ) 
+          }
+        </UserContext.Consumer>
+      ) }
+    </ThemeContext.Consumer>
+  );
 }
 
 export default App;
+
