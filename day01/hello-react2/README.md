@@ -177,5 +177,90 @@
   
   ```
 
-- 
+- React.memo
+
+  - 함수형 컴포넌트인 경우, React.memo를 이용해서 자식 컴포넌트의 불필요한 렌더링을 줄일 수 있다.
+
+- React.PureComponent
+
+  - 클래스형 컴포넌트인 경우, React.PureComponent를 이용하면 자식 컴포넌트의 불필요한 렌더링을 줄일 수 있다.
+  - 아래 두가지 Title.js 파일은 같은 결과를 출력
+
+  ```react
+  # React.memo
+  import React from 'react';
+  function Title(props) {
+      console.log(props);
+      return <p>{props.title}</p>
+  }
+  export default React.memo(Title); # memo 사용
+  
+  
+  
+  # React.PureComponent
+  import React from 'react';
+  
+  class Title extends React.PureComponent { # PureComponent 사용
+      constructor(props) {
+          super(props);
+  
+      }
+      render() {
+  
+          console.log(this.props);
+          return <p>{this.props.title}</p>
+      }
+  
+  }
+  export default Title; 
+  ```
+
+
+
+- setState : 클래스형 컴포넌트에서 상태값을 변경할 때 호출하는 메소드. setState 메소드로 입력된 객체는 기존 상태값과 병합(merge)
+
+  - prevState
+
+  - ```react
+    import React from 'react';
+    import './App.css';
+    import MyName from './Myname.js';
+    import MyName2 from './Myname2.js';
+    import Counter from './Counter.js';
+    import MyComponent from './MyComponent.js';
+    import Todo from './Todo';
+    class App extends React.Component {
+        state = {
+            count1: 0,
+            count2: 0,
+        };
+        onclick = () => {        
+            this.setState(prevState=>({
+                count1: prevState.count2+1
+            }));
+            this.setState(prevState=>({
+                count2: prevState.count2+1
+            }));
+            this.setState(prevState=>({
+                count2: prevState.count2+1
+            }));
+        };
+        render() {
+            let {count1, count2} = this.state; // 객체 비구조화
+            return (
+                <div>
+                    <p>{count1}, {count2}</p>
+                    <button onClick={this.onclick}>증가</button>
+                </div>
+            );
+    
+        }
+    }
+    export default App;
+    
+    ```
+
+  - 
+
+
 

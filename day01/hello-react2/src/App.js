@@ -5,9 +5,12 @@ import MyName2 from './Myname2.js';
 import Counter from './Counter.js';
 import MyComponent from './MyComponent.js';
 import Todo from './Todo';
+import Box from'./Box';
+
 class App extends React.Component {
+    
     render() {
-        return <Todo />
+      return(<Box/>);
     }
 }
 export default App;

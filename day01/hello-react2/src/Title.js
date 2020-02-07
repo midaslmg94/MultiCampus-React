@@ -1,6 +1,18 @@
 import React from 'react';
-function Title(props) {
-    console.log(props);
-    return <p>{props.title}</p>
+
+class Title extends React.PureComponent {
+    constructor(props) {
+        super(props);
+
+    }
+    render() {
+        let {title} = this.props;
+        let element = <p style={{
+            color: 'blue'
+        }}>{title}</p>;
+        console.log(element);
+        return element;
+    }
+
 }
-export default React.memo(Title);
+export default Title;
