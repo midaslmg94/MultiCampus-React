@@ -1,4 +1,5 @@
 import React from 'react';
+import Parent from './Parent';
 
 const UserContext = React.createContext('unknown');
 const ThemeContext = React.createContext('dark');
@@ -13,6 +14,7 @@ class App extends React.Component {
     const { username } = this.state;
     return (
       <div>
+        <Parent/> {/*상태값 올림*/}
         <ThemeContext.Provider value="light">
           <UserContext.Provider value={username}>
             <div>상단 메뉴</div>
