@@ -164,3 +164,52 @@ function Effect() {
 export default Effect;
 ```
 
+
+
+- 이벤트 처리 함수를 등록하고 해제하기
+  - 생명주기 함수를 이용하면 등록(`componentDidMount`)와 해제(`componenetWillUnmount`)가 분리되어 코드 누락이 발생할 수 있다.
+
+```react
+import React from 'react';
+
+class WidthPrinter extends React.Component{
+    state={width:window.innerWidth};
+    onResize =()=>{
+        this.setState({width: window.innerWidth});
+    }
+    // 이벤트 리스너 등록 : resize 이벤트를 등록
+    componentDidMount(){
+        window.addEventListener('resize', this.onResize);       
+    }
+    // 이벤트 리스너 해제 : resize 이벤트를 해제
+    componentWillUnmount(){
+        window.removeEventListener('resize', this.onResize);
+    }
+    render(){
+        return(
+        <div>{`width is ${this.state.width}`}</div>
+        )
+    }
+}
+export default WidthPrinter;
+```
+
+- 훅을 사용
+
+```react
+import React, { useState, useEffect } from 'react';
+
+function WidthPrinter(){
+    const[width, setWidth] = useState(window.innerWidth);
+    useEffect(()=>{
+        const onResize=()=>setWidth(window.innerWidth);
+        window.addEventListener('resize', onResize);
+        return()=>window.removeEventListener('resize', onResize);
+    },[]);
+    return <div>{`width is ${width}`}</div>;
+}
+export default WidthPrinter;
+```
+
+
+
