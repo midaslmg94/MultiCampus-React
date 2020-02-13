@@ -1,17 +1,29 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 
-class TodoItemList extends Component {
+class TodoItemList extends Component {   
+    shouldComponentUpdate(nextProps, nextState){
+        return this.props.todos !== nextProps.todos;
+        return this.props.todos!=nextProps.todos;
+    } 
     render() {
-        const{todos, onToggle, onRemove} = this.props; 
-        /* 비구조화 객체. props에 들어가는 것은 todos:[], onToggle:[], onRemove:()=>{}*/
-        return (
-            <Fragment>
-                <TodoItem text="Hi" onToggle={onToggle}/>
-                <TodoItem text="React"/>
-                <TodoItem text="Fuck"/>
-            </Fragment>
+        const { todos, onToggle, onRemove } = this.props;
+        return(
+            <div>
+                {   console.log("TodoItemList") }
+                {
+                    
+                    todos.map(
+                        ({ id, text, checked }) => (
+                            <TodoItem text={text} 
+                                checked={checked} id={id} 
+                                onToggle={onToggle} onRemove={onRemove} />
+                        )
+                    )
+                }
+            </div>
         );
     }
 }
+
 export default TodoItemList;
