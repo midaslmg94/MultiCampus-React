@@ -1,27 +1,55 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 
-function Profile() {
-    // [상태값, 상태값 변경 함수] = React.훅이름('초기값')
-    //const [name, setName] = useState('');
-    //const [age, setAge] = useState('');
+const UserContext = React.createContext();
 
-    const [state, setState] = useState({name:'', age:''});
-    /*state = {
-        name: ''
+function Profile({userId}) {
+    const user = {
+        name: '이리이링리이이니이니',
+        age: 44564
     };
-    onChange = e => {
-        this.setState({name: e.target.value});
-    };*/
     return (
         <div>
-            <p>{`My name is ${state.name}`}</p>
-            <p>{`My age is ${state.age}`}</p>
-            <p>
-                <input type="text" value={state.name} onChange={e=>{setState({...state, name: e.target.value})}}/>
-                <input type="number" value={state.age} onChange={e=>{setState({...state, age:e.target.value})}}/>       
-            </p>
+            {/*  */}
+            <UserContext.Provider value={user}>
+                <ParentComponent/>
+            </UserContext.Provider>
         </div>
     );
+}
+function ParentComponent() {
+    return (
+        <div>
+            <ChildComponent/>
+            <ChildComponentWithHook/>
+        </div>
+    );
+}
+// 훅을 사용하지 않음 --> 부모~자식간의 깊이가 길어지면 복잡해진다.
+function ChildComponent({user}) {
+    return (
+        <UserContext.Consumer>
+            {user => (
+                <div>
+                    <p>{`name is ${user.name}`}</p>
+                    <p>{`age is ${user.age}`}</p>
+                </div>
+            )}
+        </UserContext.Consumer>
+    );
+}
 
+// 훅을 사용
+function ChildComponentWithHook(){
+    const user =useContext(UserContext);
+    return(
+        <div>
+            <p>{`name is ${user.name}`}</p>
+            <p>{`name is ${user.age}`}</p>
+
+        </div>
+    )
 }
 export default Profile;
+
+
+

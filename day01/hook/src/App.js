@@ -2,6 +2,7 @@ import React from 'react';
 import Profile from './Profile.js';
 import Effect from './Effect.js';
 import WidthPrinter from './WidthPrinter.js'
+import MyComponent from './MyComponent.js';
 class App extends React.Component {
     render() {
         return (
@@ -9,6 +10,7 @@ class App extends React.Component {
                 <Profile/>
                 <Effect/>
                 <WidthPrinter/>
+                <MyComponent/>
             </div>
         );
     }
