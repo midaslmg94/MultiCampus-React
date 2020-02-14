@@ -1,55 +1,25 @@
-import React, {useContext} from 'react';
+import React, {useEffect} from 'react';
 
-const UserContext = React.createContext();
-
-function Profile({userId}) {
-    const user = {
-        name: '이리이링리이이니이니',
-        age: 44564
+function Profile() {
+    const inputEl1 = React.useRef();
+    const inputEl2 = React.useRef();
+    const onClick = () => {
+        if (inputEl1.current) {
+            inputEl1.current.focus();
+        }
     };
-    return (
-        <div>
-            {/*  */}
-            <UserContext.Provider value={user}>
-                <ParentComponent/>
-            </UserContext.Provider>
-        </div>
-    );
-}
-function ParentComponent() {
-    return (
-        <div>
-            <ChildComponent/>
-            <ChildComponentWithHook/>
-        </div>
-    );
-}
-// 훅을 사용하지 않음 --> 부모~자식간의 깊이가 길어지면 복잡해진다.
-function ChildComponent({user}) {
-    return (
-        <UserContext.Consumer>
-            {user => (
-                <div>
-                    <p>{`name is ${user.name}`}</p>
-                    <p>{`age is ${user.age}`}</p>
-                </div>
-            )}
-        </UserContext.Consumer>
-    );
-}
+    useEffect(()=>{
+        if(inputEl2.current) {
+           inputEl2.current.focus();
+        }
+    });
 
-// 훅을 사용
-function ChildComponentWithHook(){
-    const user =useContext(UserContext);
-    return(
+    return (
         <div>
-            <p>{`name is ${user.name}`}</p>
-            <p>{`name is ${user.age}`}</p>
-
+            <input ref={inputEl1} type="text" value="inputEl1"/>
+            <input ref={inputEl2} type="text" value="inputEl2"/>
+            <button onClick={onClick}>inputEl1으로 포커스 이동</button>
         </div>
-    )
+    );
 }
 export default Profile;
-
-
-
